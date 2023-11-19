@@ -148,7 +148,7 @@ We will be using columns: **total_fat, minutes, n_steps, average_rating, calorie
 
 This histogram visualizes the distribution of average ratings for recipes. It helps to understand the general trend in how users rate recipes on the platform.
 
-<iframe src="assets/average_rating_distribution.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/average_ratings_distribution.html" width=800 height=600 frameBorder=0></iframe>
 
 The distribution of the ratings is clearly skewed to the left, indicating that ratings of recipe are most likley to be either 4 or 5
 
@@ -179,7 +179,7 @@ The following box plot compares the average ratings of recipes categorized as 'S
 
   This analysis with the specific threshold provides insights into how the number of steps in a recipe, as a measure of complexity, might influence its average ratings from users. 
 
-<iframe src="assets/Recipe_ComplexityvsAverage_Rating.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/Recipe_Complexity_vs_Average_Rating.html" width=800 height=600 frameBorder=0></iframe>
 
   We noticed that the rating distribution of recipe with steps more than 20 (complex recipe) is larger than that of simple recipe, bring me to the light that the complexity might be positively related with rating received by the recipes.
 
@@ -188,7 +188,7 @@ The following box plot compares the average ratings of recipes categorized as 'S
 
   Plotting calories on the x-axis and average ratings on the y-axis. This would visually reveal any patterns or trends between these two variables.
 
-<iframe src="assets/caloriesVSaverage_ratings.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/calories_vs_average_ratings.html" width=800 height=600 frameBorder=0></iframe>
 
   By observing the scatter plot, we noticed that there're much fewer data we have for the high calories food, this might introduce bias to our prediction results, as clearly the high calories food are rated as 5. This might be a reasonable fact in reality: fewer people wanna try high-calories food, but whoever wanna try is very likely to like this kind of food originally so give a high rating afterwards. 
 
@@ -207,7 +207,7 @@ I built a pivot table by grouping recipes by preparation time (such as quick or 
 
 I had a very interesting observation here. As the preparation time category goes from quick to time-consuming, both mean and median calories amount are increasing, there might exists a positive relationship between time taken for preparation and calories of the recipe. In order to see this clearer, I have visualized these aggregates analysis in a boxplot below:
 
-<iframe src="assets/prep_time_categoryVScalories.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/prep_time_category_vs_calories.html" width=800 height=600 frameBorder=0></iframe>
 
 We can observe that is a difference between the distribution for three prepration time categories with more time-consuming categories having a larger calories distribution (higher median value), which might be an interesting research topic to carry hypothesis test forward.(Although I have chosen something else hhha, as I think this pattern is easy to observe, testing on something else will add more to this project)
 
@@ -235,11 +235,11 @@ Now, we focus on the missingness of rating in the merged dataframe and test the 
 - Statistics: the absolute difference between minutes' mean of these two distributions. 
 I also draw distribution plots about these two distributions:
 
-<iframe src="assets/minutes_distriburion_on_rate.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/minutes_distribution_on_rate.html" width=800 height=600 frameBorder=0></iframe>
 
   I have performed the permutation for 1000 times and then plot the distribution of simulated results about the absolute difference. (red vertical line is the observed statistics) 
 
-<iframe src="minutes_permutation_differences.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/minutes_permutation_differences.html" width=800 height=600 frameBorder=0></iframe>
 
 The p-value I received is 0.107. As a 0.05 as a significance threshold is used and 0.107 > 0.05, we fail to reject the null hypothesis that the rating is not dependent on the number of minutes. We can directly observe from the plot as well. Based on our test result, we can see that the missingness of the rating is MCAR because the missingness of rating is not correlated with the minutes (Strictly speaking, I will need to perform dependency test for all columns to reach this conclusion, but here's for simplicity, assuming this is the only column we need to take test on).
 
@@ -252,11 +252,11 @@ Now, we focus on the missingness of rating in the merged dataframe and test the 
 - Statistics: the absolute difference between number of steps' mean of these two distributions. 
 I also draw distribution plots about these two distributions:
 
-<iframe src="assets/numbersteps_distriburion_on_rate.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/number_of_steps_distribution_on_rate.html" width=800 height=600 frameBorder=0></iframe>
 
   I have performed the permutation for 1000 times and then plot the distribution of simulated results about the absolute difference. (red vertical line is the observed statistics) 
 
-<iframe src="n_steps_permutation_differences.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/n_steps_permutation_differences.html" width=800 height=600 frameBorder=0></iframe>
 
   The p-value I received is 0.0. As a 0.01 as a significance threshold is used and 0.01 > 0.0, we reject the null hypothesis that the rating is not dependent on the number of steps. We can directly observe from the plot as well. Therefore, we can conclude that the missingness of rating is the MAR because the rating is dependent on the number of steps. Probably if some recipes with relatively more or less number of steps will be more likely to have the missingness in the rating.
 
