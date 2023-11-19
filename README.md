@@ -19,7 +19,7 @@ I have merged two datasets, then performed some data cleaning to prepare them re
 ---
 ## Data cleaning
 
-> Merge Datasets 
+> Merge Datasets: 
 
 To start off, I have merged two datasets, recipes and ratings, based on a common identifier (recipe ID), and handled missing ratings by replacing zeros with NaN (Not a Number) values. I then calculated the average rating for each recipe and added this information to the recipes dataset. Finally, I addressed an issue with the user_id column being in float format by filling missing values with -1 and converting the column to integer type.
 
@@ -48,42 +48,42 @@ I received following information as a result:
 Before conducting analysis related to the datasets, we would first conduct data cleaning to make the data more convenient for analysis.
 By looking at the above information, I noticed some data type that required changes
 
-> Converge variable name from object into string type
+> Converge variable name from object into string type:
 
 First, to ensuring that the 'name' column, which contains the names of the recipes, is consistently in string format. This conversion is essential for text processing and ensures that all recipe names are treated uniformly in subsequent analyses.
 
-> Converge Object into list (tags, nutrition, steps, ingredients)
+> Converge Object into list (tags, nutrition, steps, ingredients):
 
 The second step I am going to do to the dataframe is the tags, nutrition, steps and ingredients columns. The four column all look like lists of string, but by checking the specific entry in the dataframe, we find that they are actually not lists. This could due to when web scraping, data collecter does not convert the text into list. As a result, we take action to convert the these three columns into list of string.
 
-> Separating Elements of 'nutrition' into Individual Columns
+> Separating Elements of 'nutrition' into Individual Columns:
 
 After converging the type of nutrition, now I am able to split the nutrition columns into different nutrition component (i.e. calories) in separate columns. By breaking down the 'nutrition' list into separate columns for each nutritional component, the dataset will be more accessible for analysis. This step is particularly relevant for investigating how specific nutritional factors, such as calorie content, influence recipe ratings.
 
-> Converge submitted and date into datetime type
+> Converge submitted and date into datetime type:
 
 The 'submitted' column contains dates when recipes were submitted. Converting this column to datetime format allows for easier manipulation and analysis of date-based data, such as filtering by year, month, or day, and time-series analysis. Similar to 'submitted', the 'date' column represents the dates of user interactions (ratings/reviews). Converting to datetime format standardizes these timestamps for any time-based analysis or filtering.
 
-> Calculating and Adding Average Rating Per Recipe
+> Calculating and Adding Average Rating Per Recipe:
 
 This step adds a crucial piece of data for the analysis – the average rating for each recipe. By calculating and appending this information, I enable an investigation into the relationship between various recipe features (like nutritional content, preparation complexity) and their overall user ratings. **Also, I believe that the reason why there are empty rating is that people do not fill in. As a result, I replace 0 with nan value**
 
-> recipe_complexity	columns
+> Recipe_complexity	columns:
 
 **Purpose:** This column categorizes recipes into 'Simple' or 'Complex' based on the number of steps required to prepare them. Recipes with 10 or fewer steps are considered 'Simple', while those with more than 10 steps are deemed 'Complex'.
 **Reason for Creation:** This categorization allows for an analysis of how recipe complexity influences user ratings. It's particularly useful for testing whether simpler recipes are more popular or rated higher than more complex ones.
 
-> calorie_range column
+> Calorie_range column:
 
 **Purpose:** To group recipes into 'Low', 'Medium', and 'High' calorie ranges.
 **Reason for Creation:** This column is created to facilitate the investigation of whether the calorie content of a recipe affects its popularity or average rating. I chose 600 and 800 calorie as the threshold because 1800/2400 are recommended daily calories for woman and man respectively, 600/800 would be recommended per meal. By categorizing the recipes into these calorie ranges, I can analyze trends and preferences related to caloric content.
 
-> prep_time_category	
+> Prep_time_category:	
 
 **Purpose:** To categorize recipes based on their preparation time into 'Quick', 'normal', and 'Time-Consuming'.
 **Reason for Creation:** This categorization aims to explore how the time required to prepare a recipe influences its ratings. I chose 30 and 60 as the threshold to separate three categories as in tags, there're below 30 minutes tag and below 60 minutes tags. It allows for a nuanced analysis of user preferences towards quick-to-make versus more time-consuming recipes.
 
-> rating_missing
+> Rating_missing:
 
 **Purpose:** To create a binary indicator that flags whether a rating for a recipe is missing.
 **Reason for Creation:** This column is critical for the analysis of missing data. It helps identify patterns in missing ratings, potentially revealing insights about why certain recipes may not have been rated and whether the missingness is random or systematically related to other recipe features.
@@ -170,7 +170,7 @@ The distrubution is also right skewed distribution. The center for the graph is 
 
 ### Bivariate Analysis:
 
-> Recipe Complexity vs Average Rating with a threshold of 20 steps
+> Recipe Complexity vs Average Rating with a threshold of 20 steps:
 
 The following box plot compares the average ratings of recipes categorized as 'Simple' and 'Complex' using a threshold of 10 steps:
 
@@ -184,7 +184,7 @@ This analysis with the specific threshold provides insights into how the number 
 We noticed that the rating distribution of recipe with steps more than 20 (complex recipe) is larger than that of simple recipe, bring me to the light that the complexity might be positively related with rating received by the recipes.
 
 
-> Relationship between the calorie content of a recipe and its average user rating.
+> Relationship between the calorie content of a recipe and its average user rating:
 
 Plotting calories on the x-axis and average ratings on the y-axis. This would visually reveal any patterns or trends between these two variables.
 
@@ -225,7 +225,7 @@ for this part, I have coded a permutation test function first, which takes in fo
 I have noticed that there're a significant missing percentage (6.41%) of rating, so I will focus on finding possible dependent factors for missing rating.
 **1% Significance Level will be applied**
 
-> test the missing of ratings on minutes
+> Test the missing of ratings on minutes:
 
 Now, we focus on the missingness of rating in the merged dataframe and test the dependency of this missingness to minutes:
 
@@ -242,7 +242,7 @@ I have performed the permutation for 1000 times and then plot the distribution o
 
 The p-value I received is 0.107. As a 0.05 as a significance threshold is used and 0.107 > 0.05, we fail to reject the null hypothesis that the rating is not dependent on the number of minutes. We can directly observe from the plot as well. Based on our test result, we can see that the missingness of the rating is MCAR because the missingness of rating is not correlated with the minutes (Strictly speaking, I will need to perform dependency test for all columns to reach this conclusion, but here's for simplicity, assuming this is the only column we need to take test on).
 
-> test the missing of ratings on n_steps
+> Test the missing of ratings on n_steps:
 
 Now, we focus on the missingness of rating in the merged dataframe and test the dependency of this missingness to number of steps:
 
@@ -280,7 +280,7 @@ Given that we're comparing means of two groups (high-calorie vs. low-calorie rec
 
 p-value: 0.002236625967153927 < 0.01
 
-> Conclusion
+> Conclusion:
 ```
 Given the p-value, we find sufficient evidence to reject the null hypothesis in favor of the alternative hypothesis at the 1% significance level. This implies that the calorie content of recipes does indeed have a significant impact on their average user ratings. However, it's important to note that while our analysis indicates a significant association, it does not establish causation. Other unmeasured factors might also contribute to this observed relationship.
 
