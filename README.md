@@ -1,4 +1,4 @@
-# Exploring the Impact of Nutritional Values on Recipe Ratings"
+# Exploring the Impact of Nutritional Values on Recipe Ratings
 ### Yanhao Guo
 
 - Introduction
@@ -164,7 +164,7 @@ The distribution of the ratings is clearly skewed to the right, with the median 
 
 This histogram visualizes the distribution of the number of steps ('n_steps') involved in recipes. It offers an insight into the complexity of recipes in terms of their preparation steps.
 
-<iframe src="n_steps_distribution.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/n_steps_distribution.html" width=800 height=600 frameBorder=0></iframe>
 
 The distrubution is also right skewed distribution. The center for the graph is around 7, meaning most recipes have 7 steps. Also, we could observe the graph have a lot outliers that have very big step numbers. after observing this histogram, I decided to use 20 steps as the threshold to distinguish the simple recipe and complex recipe as most of recipe having steps less than 20 steps.
 
@@ -206,7 +206,7 @@ I built a pivot table by grouping recipes by preparation time (such as quick or 
 
 I had a very interesting observation here. As the preparation time category goes from quick to time-consuming, both mean and median calories amount are increasing, there might exists a positive relationship between time taken for preparation and calories of the recipe. In order to see this clearer, I have visualized these aggregates analysis in a boxplot below:
 
-<iframe src="prep_time_categoryVScalories.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/prep_time_categoryVScalories.html" width=800 height=600 frameBorder=0></iframe>
 
 We can observe that is a difference between the distribution for three prepration time categories with more time-consuming categories having a larger calories distribution (higher median value), which might be an interesting research topic to carry hypothesis test forward.(Although I have chosen something else hhha, as I think this pattern is easy to observe, testing on something else will add more to this project)
 
@@ -234,11 +234,11 @@ Now, we focus on the missingness of rating in the merged dataframe and test the 
 - Statistics: the absolute difference between minutes' mean of these two distributions. 
 I also draw distribution plots about these two distributions:
 
-<iframe src="minutes_distriburion_on_rate.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/minutes_distriburion_on_rate.html" width=800 height=600 frameBorder=0></iframe>
 
 I have performed the permutation for 1000 times and then plot the distribution of simulated results about the absolute difference. (red vertical line is the observed statistics) 
 
-<iframe src="missingness_assessment_1.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/missingness_assessment_1.html" width=800 height=600 frameBorder=0></iframe>
 
 The p-value I received is 0.107. As a 0.05 as a significance threshold is used and 0.107 > 0.05, we fail to reject the null hypothesis that the rating is not dependent on the number of minutes. We can directly observe from the plot as well. Based on our test result, we can see that the missingness of the rating is MCAR because the missingness of rating is not correlated with the minutes (Strictly speaking, I will need to perform dependency test for all columns to reach this conclusion, but here's for simplicity, assuming this is the only column we need to take test on).
 
@@ -251,11 +251,11 @@ Now, we focus on the missingness of rating in the merged dataframe and test the 
 - Statistics: the absolute difference between number of steps' mean of these two distributions. 
 I also draw distribution plots about these two distributions:
 
-<iframe src="numbersteps_distriburion_on_rate.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/numbersteps_distriburion_on_rate.html" width=800 height=600 frameBorder=0></iframe>
 
 I have performed the permutation for 1000 times and then plot the distribution of simulated results about the absolute difference. (red vertical line is the observed statistics) 
 
-<iframe src="missingness_assessment_2.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/missingness_assessment_2.html" width=800 height=600 frameBorder=0></iframe>
 
 The p-value I received is 0.0. As a 0.01 as a significance threshold is used and 0.01 > 0.0, we reject the null hypothesis that the rating is not dependent on the number of steps. We can directly observe from the plot as well. Therefore, we can conclude that the missingness of rating is the MAR because the rating is dependent on the number of steps. Probably if some recipes with relatively more or less number of steps will be more likely to have the missingness in the rating.
 
