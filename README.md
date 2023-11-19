@@ -177,20 +177,20 @@ The following box plot compares the average ratings of recipes categorized as 'S
 - Recipe Complexity: Recipes with 20 or fewer steps are labeled 'Simple', while those with more than 20 steps are labeled 'Complex'.
 - Average Rating: The distribution of average ratings for each complexity category is depicted in the plot.
 
-This analysis with the specific threshold provides insights into how the number of steps in a recipe, as a measure of complexity, might influence its average ratings from users. 
+  This analysis with the specific threshold provides insights into how the number of steps in a recipe, as a measure of complexity, might influence its average ratings from users. 
 
 <iframe src="assets/Recipe_ComplexityvsAverage_Rating.html" width=800 height=600 frameBorder=0></iframe>
 
-We noticed that the rating distribution of recipe with steps more than 20 (complex recipe) is larger than that of simple recipe, bring me to the light that the complexity might be positively related with rating received by the recipes.
+  We noticed that the rating distribution of recipe with steps more than 20 (complex recipe) is larger than that of simple recipe, bring me to the light that the complexity might be positively related with rating received by the recipes.
 
 
 > Relationship between the calorie content of a recipe and its average user rating:
 
-Plotting calories on the x-axis and average ratings on the y-axis. This would visually reveal any patterns or trends between these two variables.
+  Plotting calories on the x-axis and average ratings on the y-axis. This would visually reveal any patterns or trends between these two variables.
 
 <iframe src="assets/caloriesVSaverage_ratings.html" width=800 height=600 frameBorder=0></iframe>
 
-By observing the scatter plot, we noticed that there're much fewer data we have for the high calories food, this might introduce bias to our prediction results, as clearly the high calories food are rated as 5. This might be a reasonable fact in reality: fewer people wanna try high-calories food, but whoever wanna try is very likely to like this kind of food originally so give a high rating afterwards. 
+  By observing the scatter plot, we noticed that there're much fewer data we have for the high calories food, this might introduce bias to our prediction results, as clearly the high calories food are rated as 5. This might be a reasonable fact in reality: fewer people wanna try high-calories food, but whoever wanna try is very likely to like this kind of food originally so give a high rating afterwards. 
 
 ### Aggregates analysis
 
@@ -203,6 +203,7 @@ I built a pivot table by grouping recipes by preparation time (such as quick or 
 |         338.799 |             244.1 |            0   |        45609   |
 |         432.154 |             331   |            0.2 |        18268.7 |
 |         557.125 |             389.1 |            0   |        36188.8 |
+
 
 I had a very interesting observation here. As the preparation time category goes from quick to time-consuming, both mean and median calories amount are increasing, there might exists a positive relationship between time taken for preparation and calories of the recipe. In order to see this clearer, I have visualized these aggregates analysis in a boxplot below:
 
@@ -236,9 +237,9 @@ I also draw distribution plots about these two distributions:
 
 <iframe src="assets/minutes_distriburion_on_rate.html" width=800 height=600 frameBorder=0></iframe>
 
-I have performed the permutation for 1000 times and then plot the distribution of simulated results about the absolute difference. (red vertical line is the observed statistics) 
+  I have performed the permutation for 1000 times and then plot the distribution of simulated results about the absolute difference. (red vertical line is the observed statistics) 
 
-<iframe src="assets/missingness_assessment_1.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="minutes_permutation_differences.html" width=800 height=600 frameBorder=0></iframe>
 
 The p-value I received is 0.107. As a 0.05 as a significance threshold is used and 0.107 > 0.05, we fail to reject the null hypothesis that the rating is not dependent on the number of minutes. We can directly observe from the plot as well. Based on our test result, we can see that the missingness of the rating is MCAR because the missingness of rating is not correlated with the minutes (Strictly speaking, I will need to perform dependency test for all columns to reach this conclusion, but here's for simplicity, assuming this is the only column we need to take test on).
 
@@ -253,11 +254,11 @@ I also draw distribution plots about these two distributions:
 
 <iframe src="assets/numbersteps_distriburion_on_rate.html" width=800 height=600 frameBorder=0></iframe>
 
-I have performed the permutation for 1000 times and then plot the distribution of simulated results about the absolute difference. (red vertical line is the observed statistics) 
+  I have performed the permutation for 1000 times and then plot the distribution of simulated results about the absolute difference. (red vertical line is the observed statistics) 
 
-<iframe src="assets/missingness_assessment_2.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="n_steps_permutation_differences.html" width=800 height=600 frameBorder=0></iframe>
 
-The p-value I received is 0.0. As a 0.01 as a significance threshold is used and 0.01 > 0.0, we reject the null hypothesis that the rating is not dependent on the number of steps. We can directly observe from the plot as well. Therefore, we can conclude that the missingness of rating is the MAR because the rating is dependent on the number of steps. Probably if some recipes with relatively more or less number of steps will be more likely to have the missingness in the rating.
+  The p-value I received is 0.0. As a 0.01 as a significance threshold is used and 0.01 > 0.0, we reject the null hypothesis that the rating is not dependent on the number of steps. We can directly observe from the plot as well. Therefore, we can conclude that the missingness of rating is the MAR because the rating is dependent on the number of steps. Probably if some recipes with relatively more or less number of steps will be more likely to have the missingness in the rating.
 
 ---
 ## Hypothesis Testing
